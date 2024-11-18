@@ -1,5 +1,6 @@
 package com.tulingxueyuan.order.controller;
 
+import com.tulingxueyuan.order.feign.ProductFeignService;
 import com.tulingxueyuan.order.feign.StockFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ public class OrderController {
 
     @Autowired
     StockFeignService stockFeignService;
+    @Autowired
+    ProductFeignService productFeignService;
 
     @RequestMapping("/add")
     public String add(){
@@ -26,6 +29,7 @@ public class OrderController {
 //        String msg = restTemplate.getForObject("http://stock-service/stock/reduce",String.class);
 //        return "Hello World!" + msg;
         String msg = stockFeignService.reduce();
-        return "Hello Feign!" + msg;
+        String product = productFeignService.getProductById("1");
+        return "Hello Feign!" + msg+product;
     }
 }

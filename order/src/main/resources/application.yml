@@ -24,3 +24,18 @@ ribbon:
     enabled: true
     #配置stock-service使用ribbon饥饿加载，多个使用逗号分隔
     clients: stock-service
+
+# 配置 feign 日志后 发现控制台没有打印，原因：springBoot默认只打印 info 级别以上的日志
+logging:
+  level:
+    com.tulingxueyuan.order.feign: debug
+
+feign:
+  client:
+    config:
+      product-service:
+        loggerLevel: BASIC
+      stock-service:
+        loggerLevel: BASIC
+
+
