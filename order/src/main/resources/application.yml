@@ -35,6 +35,13 @@ feign:
     config:
       product-service:
         loggerLevel: BASIC
+        # 方式二 ： 指定Feign原生注解契约配置
+        contract: feign.Contract.Default
+        # 连接超时时间，默认2s
+        connectTimeout: 5000
+        # 请求处理超时时间，默认5s
+        readTimeout: 10000
+
       stock-service:
         loggerLevel: BASIC
 

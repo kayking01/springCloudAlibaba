@@ -19,4 +19,19 @@ public class FeignConfig {
     public Logger.Level feignLoggerLevel(){
         return Logger.Level.FULL;
     }
+
+/*  契约配置 方式一：config里配置
+    @Bean
+    public Contract feignContract() {
+        return new Contract.Default();
+    }*/
+
+    /*
+     * Options 的第一个参数是连接的超时时间（ms），默认值是 2s；
+     *  第二个是请求处理的超时时间（ms），默认值是 5s。
+    @Bean
+    public Request.Options options() {
+        return new Request.Options(5000, 10000);
+    }
+     **/
 }
