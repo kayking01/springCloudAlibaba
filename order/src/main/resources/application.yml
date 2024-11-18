@@ -17,3 +17,10 @@ spring:
 stock-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.tulingxueyuan.ribbon.rule.CustomRule
+
+ribbon:
+  eager-load:
+    #开启ribbon饥饿加载 解决第一次调用慢的问题
+    enabled: true
+    #配置stock-service使用ribbon饥饿加载，多个使用逗号分隔
+    clients: stock-service

@@ -18,17 +18,27 @@ https://github.com/alibaba/nacos/releases/download/2.2.3/nacos-server-2.2.3.tar.
 需要 2.1.0 版本？ 先用2.2.3的试一下
 
 ##### Ribbon：
-    nacos-discovery 依赖了 ribbon，可以不用再引入ribbon依赖
-    实现 负载均衡策略的两种方式：
-        1. 配置类 
-            不能写在@SpringbootApplication注解的@CompentScan扫描得到的地方，否则自定义的配置类就会被所有的 RibbonClients共享。 
-            不建议这么使用，推荐yml方式
-        2. 修改.yaml配置文件
-            stock-service:
-                ribbon:
-                    # 指定使用Nacos提供的负载均衡策略（优先调用同一集群的实例，基于随机&权重）
-                    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
-            nocas控制台可以配置 权重
+nacos-discovery 依赖了 ribbon，可以不用再引入ribbon依赖。     
+实现负载均衡策略的两种方式：  
+    1.配置类   
+        不能写在@SpringbootApplication注解的@CompentScan扫描得到的地方，否则自定义的配置类就会被所有的 RibbonClients共享。    
+        不建议这么使用，推荐yml方式      
+    2. 修改.yaml配置文件  
+```yaml
+        stock-service:        
+            ribbon:      
+                # 指定使用Nacos提供的负载均衡策略（优先调用同一集群的实例，基于随机&权重） 开启后 nacos 控制台可以配置 权重       
+                NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule           
+```
+默认懒加载模式，开启饥饿加载：     
+```yaml
+ribbon:
+  eager-load:
+  #开启ribbon饥饿加载
+    enabled:true
+  #配置mall-user使用ribbon饥饿加载，多个使用逗号分隔
+    clients:stock-service
+```
 ##### OpenFeign:
 引入依赖：
 ```xml
