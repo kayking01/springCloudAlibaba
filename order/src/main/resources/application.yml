@@ -41,7 +41,9 @@ feign:
         connectTimeout: 5000
         # 请求处理超时时间，默认5s
         readTimeout: 10000
-
+        # feign 拦截器 方式二：  拦截器只有请求拦截， 没有响应拦截，有点扯， 响应拦截需要对源码进行重构
+        requestInterceptors[0]:
+          com.tulingxueyuan.order.Interceptor.feign.FeignCustomInterceptor
       stock-service:
         loggerLevel: BASIC
 

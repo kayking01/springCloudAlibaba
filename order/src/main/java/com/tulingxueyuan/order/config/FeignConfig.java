@@ -34,4 +34,12 @@ public class FeignConfig {
         return new Request.Options(5000, 10000);
     }
      **/
+
+    /**
+     * @Description // 配置自定义拦截器 方式一：
+     **/
+/*    @Bean
+    public FeignCustomInterceptor feignCustomInterceptor(){
+        return new FeignCustomInterceptor();
+    }*/
 }
