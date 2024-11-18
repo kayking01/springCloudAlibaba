@@ -9,6 +9,7 @@
     <modules>
         <module>order</module>
         <module>stock</module>
+        <module>product</module>
     </modules>
 
     <name>springCloudAlibaba</name>
