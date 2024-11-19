@@ -21,6 +21,25 @@ spring:
 #        namespace: public  不能声明 public 一声明 public 就获取不到配置文件里的数据了 不声明 就是默认 public
 #        fileExtension: YAML #  配置文件 改为 yaml格式 TEXT JSON XML YAML HTML properties 默认是 properties   这里的大小写 要和  配置文件 名字里面的一样 yaml YAML 不一样
 #        refresh-enabled: false # 客户端将无法感知 配置的变化
-
+        shared-configs:
+          - data-id: product-service-config.properties
+            refresh: true
+            # group:  默认为DEFAULT_GROUP
+            fileExtension: properties
+          - data-id: product-service-config2.properties
+            refresh: true
+            # group:  默认为DEFAULT_GROUP
+            fileExtension: properties
+        extension-configs[0]:
+          data-id: product-service-config3.properties
+          refresh: true
+          fileExtension: properties
+# profile > 默认配置文件 > 指定配置文件( 后读取到的 为优先)
+# 配置的优先级
+#Spring Cloud Alibaba Nacos Config 目前提供了三种配置能力从 Nacos 拉取相关的配置。
+#A: 通过 spring.cloud.nacos.config.shared-configs[n].data-id 支持多个共享 Data Id 的配置
+#B: 通过 spring.cloud.nacos.config.extension-configs[n].data-id 的方式支持多个扩展 Data Id 的配置
+#C: 通过内部相关规则(应用名、应用名+ Profile )自动生成相关的 Data Id 配置
+# 当三种方式共同使用时，他们的一个优先级关系是:A < B < C
 
 
