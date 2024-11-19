@@ -1,0 +1,31 @@
+spring:
+  application:
+    # 会自动根据服务名拉去dataId对应的配置，如果dataId不一致，就需要手动指定dataId
+    name: product-service
+#  profiles:
+#      active: dev      #  声明 active  对应的配置文件为： ${spring.application.name}-${spring.profiles.active}
+  cloud:
+    nacos:
+      server-addr: 192.168.80.110:8848,192.168.80.111:8848,192.168.80.112:8848
+      # 注册中心
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: 1a3548f0-2de9-4935-822a-b512604d3a15
+#        namespace: public  # dev prod
+        # weight: 权重
+        # service: 默认取 ${spring.application.name} 也可以通过此选项配置
+        # group: 默认 defaultGroup 用于更细度相同特征服务的分组管理
+
+      # 配置中心
+      config:
+        username: nacos
+        password: nacos
+        namespace: 1a3548f0-2de9-4935-822a-b512604d3a15
+        # namespace: 1a3548f0-2de9-4935-822a-b512604d3a15  # 可以声明其他命名空间
+#        namespace: public  不能声明 public 一声明 public 就获取不到配置文件里的数据了 不声明 就是默认 public
+        fileExtension: yaml #  配置文件 改为 yaml格式
+#        refresh-enabled: false # 客户端将无法感知 配置的变化
+
+
+

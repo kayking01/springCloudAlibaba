@@ -14,8 +14,17 @@ https://sca.aliyun.com/docs/2.2.x/overview/version-explain/?spm=5176.29160081.0.
 https://start.aliyun.com/bootstrap.html
 
 ##### nacos：稳定版本
-https://github.com/alibaba/nacos/releases/download/2.2.3/nacos-server-2.2.3.tar.gz
-需要 2.1.0 版本？ 先用2.2.3的试一下
+https://github.com/alibaba/nacos/releases/download/2.2.3/nacos-server-2.2.3.tar.gz      
+nacos config : https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/Nacos-config     
+nacos discovery: https://github.com/spring-cloud-incubator/spring-cloud-alibaba/wiki/Nacos-discovery    
+需要 2.1.0 版本？ 先用2.2.3的试一下 
+nacos 2.1.0之后的版本开启鉴权 nacos配置文件：
+```text
+nacos.core.auth.enabled=true
+nacos.core.auth.server.identity.key=nacos
+nacos.core.auth.server.identity.value=nacos
+nacos.core.auth.plugin.nacos.token.secret.key=VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=
+```
 
 ##### Ribbon：
 nacos-discovery 依赖了 ribbon，可以不用再引入ribbon依赖。     

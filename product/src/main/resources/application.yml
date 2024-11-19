@@ -1,19 +1,2 @@
 server:
   port: 8083
-
-spring:
-  application:
-    name: product-service
-  cloud:
-    nacos:
-      server-addr: 192.168.80.110:8848,192.168.80.111:8848,192.168.80.112:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: public  # dev prod
-        # weight: 权重
-        # service: 默认取 ${spring.application.name} 也可以通过此选项配置
-        # group: 默认 defaultGroup 用于更细度相同特征服务的分组管理
-
-
-
