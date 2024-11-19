@@ -1,2 +1,10 @@
 server:
   port: 8083
+spring:
+  application:
+    # 会自动根据服务名拉去dataId对应的配置，如果dataId不一致，就需要手动指定dataId
+    name: product-service    # 只有根服务名相同的配置文件支持 profiles 规则
+  profiles:
+    # 声明 active 对应的配置文件为： ${spring.application.name}-${profile}.${file-extension:properties}
+    # file-extension:properties 对应 spring.cloud.nacos.config.fileExtension 默认为：properties
+#    active: dev
