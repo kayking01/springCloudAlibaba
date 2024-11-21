@@ -28,13 +28,26 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-            <version>1.8.6</version>
+            <version>1.8.8</version>
         </dependency>
         <!--@SentinelResource注解支持 配置切面支持 -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-annotation-aspectj</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.8</version>
+        </dependency>
+
+        <!--
+        1. 下载 sentinel-dashboard jar包 启动
+        java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
+
+        2. 然后客户端 引入jar包
+        启动时加入 JVM 参数 -Dcsp.sentinel.dashboard.server=consoleIp:port
+        -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>1.8.8</version>
         </dependency>
 
         <dependency>
