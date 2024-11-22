@@ -40,6 +40,9 @@ public class OrderController {
     /**
      * @Author wkx
      * @Description //控制台 针对资源 flow 配置 Qps 限流规则
+     *  统一异常处理后，
+     *  针对 资源 flowQps 的限流策略 会 正常跳转 blockHandler 处理
+     *  而针对RequestMapping的 限流策略 会由统一异常处理
      **/
     @RequestMapping("/flowQps")
     @SentinelResource(value = "flowQps",blockHandler = "flowBlockHandler")
@@ -54,7 +57,7 @@ public class OrderController {
      * @Description //控制台 针对资源 flow 配置 线程数限流规则，通过不同浏览器同时访问，实现 限流规则
      **/
     @RequestMapping("/flowThreadNum")
-    @SentinelResource(value = "flowThreadNum",blockHandler = "flowBlockHandler")
+//    @SentinelResource(value = "flowThreadNum",blockHandler = "flowBlockHandler")
     public String flowThreadNum() throws InterruptedException {
         TimeUnit.SECONDS.sleep(5);
 

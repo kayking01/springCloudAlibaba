@@ -72,7 +72,7 @@ public class DegradeRuleController {
         /*	熔断策略，支持慢调用比例/异常比例/异常数策略*/
         // DEGRADE_GRADE_RT   慢调用比例
         // DEGRADE_GRADE_EXCEPTION_RATIO 异常比例
-        // DEGRADE_GRADE_EXCEPTION_COUNT 异常数策
+        // DEGRADE_GRADE_EXCEPTION_COUNT 异常数
         rule.setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT);
         /* 触发熔断异常数 */
         rule.setCount(2);
