@@ -71,12 +71,15 @@ public class DegradeRuleController {
 
         /*	熔断策略，支持慢调用比例/异常比例/异常数策略*/
         // DEGRADE_GRADE_RT   慢调用比例
-        // DEGRADE_GRADE_EXCEPTION_RATIO 异常比例
-        // DEGRADE_GRADE_EXCEPTION_COUNT 异常数
+        //        // DEGRADE_GRADE_EXCEPTION_RATIO 异常比例
+        //        // DEGRADE_GRADE_EXCEPTION_COUNT 异常数
         rule.setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT);
-        /* 触发熔断异常数 */
+        /* 异常数：触发熔断异常数 实际通常会是 N+1
+         * 异常比例: [0.0, 1.0] 阈值
+        *  慢调用比例 模式下  为慢调用临界 RT 最大响应时间 单位是ms（超出该值计为慢调用）
+        * */
         rule.setCount(2);
-        /* 出发熔断的最小请求数 */
+        /* 出发熔断的最小请求数  请求数小于该值时即使异常比率超出阈值也不会熔断（1.7.0 引入） */
         rule.setMinRequestAmount(2);
         /* 统计时长 默认1s  */
         rule.setStatIntervalMs(60*1000); // 时间太短不好测
@@ -85,6 +88,10 @@ public class DegradeRuleController {
         *   持续时常过后-半开状态，恢复接口的请求调用，若第一次请求就异常的情况下，会再次熔断，不会根据原设置的条件
         * */
         rule.setTimeWindow(10);
+
+        /* 慢调用比例阈值，仅慢调用比例模式有效（1.8.0 引入）  */
+//        rule.setSlowRatioThreshold(0.4);
+
         rules.add(rule);
         DegradeRuleManager.loadRules(rules);
     }

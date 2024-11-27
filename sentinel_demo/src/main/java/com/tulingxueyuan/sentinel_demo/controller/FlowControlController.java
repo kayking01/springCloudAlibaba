@@ -98,11 +98,40 @@ public class FlowControlController {
         List<FlowRule> rules = new ArrayList<>();
         FlowRule rule = new FlowRule(NAME_SPACE);
         // set limit qps to 20
+        /* 匀速排队流控：count 代表 一秒匀速通过的请求数量
+        * 比如count = 10，也就是每个请求平均间隔恒定为 1000 / 10 = 100 ms
+        *  */
         rule.setCount(1);
         // FLOW_GRADE_THREAD  线程数
         // FLOW_GRADE_QPS     QPS
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
         rule.setLimitApp("default");
+
+        /* QBS 模式下 的参数
+        流控效果
+        * 1. 直接拒绝：RuleConstant.CONTROL_BEHAVIOR_DEFAULT
+        *
+        * 2. Warm Up 预热/冷启动方式: RuleConstant.CONTROL_BEHAVIOR_WARM_UP
+        *   warmUpPeriodSec 代表期待系统进入稳定状态的时间（即预热时长）
+        *   当流量突然增大的时候，我们常常会希望系统从空闲状态到繁忙状态的切换的时间长一些。
+        *   即如果系统在此之前长期处于空闲的状态，我们希望处理请求的数量是缓步的增多，
+        *   经过预期的时间以后，到达系统处理请求个数的最大值。
+        *
+        * 3. 匀速排队: RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER
+        *    严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过，对应的是漏桶算法。
+        *    注意：匀速排队模式暂时不支持 QPS > 1000 的场景。
+        *    应用场景：如果系统使用 Apache RocketMQ 来收发消息，系统在某个时间突然收到大量消息。
+        *       我们希望以固定的速率来处理消息，而不是一下子拒绝这些消息。
+        *       这个时候可以使用匀速器，也就是给消息排队。
+        * */
+        rule.setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_DEFAULT);
+
+        /* 预热/冷启动方式 模式下的参数, 代表 期待 系统进入 稳定状态的时间（即预热时长） */
+//        rule.setWarmUpPeriodSec(10); // 默认值 10
+
+        /* 匀速排队 模式下，的最长等待时间 */
+        rule.setMaxQueueingTimeMs(20 * 1000); // 最大等待时长 20s
+
         rules.add(rule);
         FlowRuleManager.loadRules(rules);
     }
