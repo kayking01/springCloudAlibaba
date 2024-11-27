@@ -50,5 +50,6 @@ feign:
         requestInterceptors[0]: com.tulingxueyuan.order.Interceptor.feign.FeignCustomInterceptor
       stock-service:
         loggerLevel: BASIC
-
+  sentinel:
+    enabled: true #增加 feign对sentinel的支持。
 
