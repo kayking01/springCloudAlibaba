@@ -5,6 +5,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tulingxueyuan.order.feign.ProductFeignService;
 import com.tulingxueyuan.order.feign.StockFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,4 +68,27 @@ public class OrderController {
     private String flowBlockHandler(BlockException e){
         return "限流规则";
     }
+
+    /**
+     * @Author wkx
+     * @Description // 热点规则 必须使用 @SentinelResource 注解
+     *                  针对接口进行流控不会有效果的
+     *  注意点： 参数索引下标 从0开始
+     *          单机阈值 针对 所有参数
+     *          参数值 限流阈值 针对 指定参数值
+     *
+     **/
+    @RequestMapping("/get/{id}")
+    @SentinelResource(value = "getById",blockHandler = "hotBlockHandler")
+    public String getById(@PathVariable Integer id) throws InterruptedException {
+        System.out.println("正常访问");
+        return "正常访问";
+    }
+
+    public String hotBlockHandler(@PathVariable Integer id,BlockException be){
+        be.printStackTrace();
+        return "hotBlockHandle";
+    }
+
+
 }
