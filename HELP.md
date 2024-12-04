@@ -65,7 +65,32 @@ ribbon:
         <version>1.8.0</version>
     </dependency>
 ```
-
+结合nacos 持久化 配置
+    目前 只能 手动持久化到nacos配置文件中，然后服务启动加载。
+    添加修改同步nacos需要修改源码 后续补充
+1. 引入依赖
+```xml
+    <dependency>
+        <groupId>com.alibaba.csp</groupId>
+        <artifactId>sentinel-datasource-nacos</artifactId>
+    </dependency>
+```
+2. 增加yml配置
+```json
+[
+    {
+        "resource": "flowQps",
+        "limitApp": "default",
+        "grade": 1,
+        "count": 1,
+        "strategy": 0,
+        "controlBehavior": 0,
+        "clusterMode": false
+    }
+]
+```
+3. nacos新建配置文件
+![img_1.png](img_1.png)
 
 ##### Seata：
 https://github.com/apache/incubator-seata/releases/download/v2.0.0/seata-server-2.0.0.tar.gz

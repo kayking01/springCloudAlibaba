@@ -19,6 +19,16 @@ spring:
         port: 8720
         dashboard: 192.168.80.110:8090
       # web-context-unify: fasle # 默认将调用链路收敛。
+      datasource:
+        flow-rules:
+          nacos: # NacosDataSourceProperties
+            username: nacos
+            password: nacos
+            server-addr: 192.168.80.110:8848,192.168.80.111:8848,192.168.80.112:8848
+            dataId: ${spring.application.name}-flow-rule
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow # RuleType
 stock-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.tulingxueyuan.ribbon.rule.CustomRule
